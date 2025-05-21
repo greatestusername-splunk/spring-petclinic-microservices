@@ -66,6 +66,14 @@ class OwnerResource {
      */
     @GetMapping(value = "/{ownerId}")
     public Optional<Owner> findOwner(@PathVariable("ownerId") @Min(1) int ownerId) {
+        if (ownerId > 8) {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new RuntimeException("Thread was interrupted", e);
+            }
+        }
         return ownerRepository.findById(ownerId);
     }
 
